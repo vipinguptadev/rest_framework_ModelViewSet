@@ -133,10 +133,11 @@ from rest_framework.permissions import (
     IsAuthenticatedOrReadOnly,
     DjangoModelPermissions
 )
+from .custompermission import MyPermission
 
 
 class StudentView(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerialzers
     # authentication_classes = [SessionAuthentication]
-    permission_classes = [DjangoModelPermissions]
+    permission_classes = [MyPermission]
