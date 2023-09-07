@@ -31,5 +31,7 @@ router.register('studentapi',StudentView,basename="student")
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include(router.urls)),
+    path('',include('rest_framework.urls')),
+    
 
 ]

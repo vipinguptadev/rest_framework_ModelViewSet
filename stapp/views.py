@@ -10,7 +10,13 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from rest_framework.mixins import ListModelMixin,UpdateModelMixin,CreateModelMixin,DestroyModelMixin,RetrieveModelMixin
+from rest_framework.mixins import (
+    ListModelMixin,
+    UpdateModelMixin,
+    CreateModelMixin,
+    DestroyModelMixin,
+    RetrieveModelMixin,
+)
 from rest_framework.generics import GenericAPIView
 
 # using view
@@ -101,7 +107,7 @@ from rest_framework.generics import GenericAPIView
 #         return self.list(request,*args,**kwargs)
 
 #     def post(self,request,*args,**kwargs):
-#         return self.create(request,*args,**kwargs) 
+#         return self.create(request,*args,**kwargs)
 
 # class StudentUDR(GenericAPIView,UpdateModelMixin,DestroyModelMixin,RetrieveModelMixin):
 #     queryset = Student.objects.all()
@@ -112,14 +118,25 @@ from rest_framework.generics import GenericAPIView
 
 #     def delete(self,request,*args,**kwargs):
 #         return self.destroy(request,*args,**kwargs)
-    
+
 #     def get(self,request,*args,**kwargs):
 #         return self.retrieve(request,*args,**kwargs)
-    
 
 
-#Modelviewset
+# Modelviewset
 from rest_framework import viewsets
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import (
+    IsAdminUser,
+    AllowAny,
+    IsAuthenticated,
+    IsAuthenticatedOrReadOnly,
+    DjangoModelPermissions
+)
+
+
 class StudentView(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerialzers
+    # authentication_classes = [SessionAuthentication]
+    permission_classes = [DjangoModelPermissions]
